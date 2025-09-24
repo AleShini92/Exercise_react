@@ -1,0 +1,121 @@
+const [name, setName] = useState('');
+[] name 👉 è la variabile di stato: contiene il valore attuale (quello che React ti dà al render).
+[] setName 👉 è la funzione che aggiorna quello stato.
+
+
+Puoi pensare a useState così:
+
+name = la scatola con il valore attuale
+setName = è il fogliettino che metti dentro la scatola per aggiornare "name"
+
+
+function Count() {
+    const [count, setCount] = useState(0);
+
+    function handleClick() {
+      setCount(c => c + 1)
+    }
+
+    return (
+        <div>
+            <p style={{marginBottom: 10}}>You have clicked { count } time!</p>
+            <button onClick={handleClick} style={{ marginRight: 10 }}>+</button>
+            <button onClick={() => setCount(count - 1)}>-</button>
+        </div>
+    )
+}
+
+export default Count;
+
+
+[x] COSA NON FARE
+onClick={() => setCount(count - 1)}
+
+Se fai più update nello stesso evento, userai sempre il vecchio valore di count
+(quello "catturato" al render), non quello aggiornato.
+
+✅ COSA FARE:
+
+setCount(c => c + 1) → Functional update
+
+Qui stai passando a setCount una funzione, non un valore diretto.
+React prende come input il valore più aggiornato dello stato (c) e calcola il nuovo stato.
+
+✅ Vantaggi:
+
+Evita problemi di stato obsoleto (stale state), cioè quando fai più update nello stesso ciclo di rendering.
+Ogni update viene calcolato in base all’ultimo valore disponibile,
+non a quello "fotografato" al momento in cui è stata creata la funzione onClick.
+
+Esempio:
+
+onClick={() => {
+  setCount(c => c + 1);
+  setCount(c => c + 1);
+}}
+
+
+Qui count aumenterà di 2, perché ogni chiamata usa il valore aggiornato.
+
+/*************************************************/
+
+/* 
+  JavaScript in JSX con parentesi graffe:
+  JSX consente di scrivere markup di tipo HTML all'interno di un file JavaScript,
+  mantenendo la logica di rendering e il contenuto nello stesso posto.
+  A volte può essere necessario aggiungere un po' di logica JavaScript
+  o fare riferimento a una proprietà dinamica all'interno di quel markup.
+  In questo caso, è possibile utilizzare le parentesi graffe nel file JSX per aprire una finestra in JavaScript.
+*/
+
+[+] ESEMPIO:
+
+export default function Hello() {
+  const name = 'Alessandro';
+  return (
+    <h1>Welcome {name}</h1>
+  );
+}
+
+/*
+  È possibile spostare più espressioni in un unico oggetto e farvi riferimento nel JSX tra parentesi graffe:
+*/
+
+const person = {
+  name: 'Alessandro',
+  theme: {
+    backgroundColor: 'black',
+    color: 'violet'
+  }
+};
+
+export default function Hello() {
+  return (
+    <div style={person.theme}>
+      <h1>Hello {person.name}</h1>
+    </div>
+  );
+}
+
+
+/*
+  PROPS:  
+  I componenti React utilizzano le props per comunicare tra loro.
+  Ogni componente padre può passare alcune informazioni ai suoi componenti figlio assegnando loro delle props.
+  Le props potrebbero ricordare gli attributi HTML, ma è possibile passarvi qualsiasi valore
+  JavaScript, inclusi oggetti, array e funzioni.
+*/
+
+ESEMPIO:
+
+export default function Profile() {
+  return (
+    <Avatar
+      person={{ name: 'Ale', imageId: '1' }}
+      size={100}
+    />
+  );
+}
+
+
+/*{ -------------------------------------------- }*/
