@@ -1,5 +1,5 @@
 Prima di tutto:
-
+[]
 npm create vite@latest nome-progetto -- --template vanilla-jsx
 
 [] creare un progetto con i file jsx di default
