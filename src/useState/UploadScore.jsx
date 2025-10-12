@@ -20,6 +20,13 @@ export default function UploadScore() {
         })
     }
 
+    function clickMin() {
+        setPlayer({
+            ...player,
+            score: player.score - 1
+        })
+    }
+
     // function getColor(score) {
     //     if (score >= 15) {
     //     return "violet";
@@ -28,14 +35,16 @@ export default function UploadScore() {
     return(
         <>
             <h1 style={{fontSize: 26, marginBottom:10}}>Score: {player.score}</h1>
-            <div style={
-                { marginBottom: 20,
-                  color: player.score >= 15 ? "violet" : "white"
+            <div style=
+                {{
+                    marginBottom: 20,
+                    color: player.score >= 15 ? "violet" : "white"
                 //   color: getColor(player.score)
                 }}>
                 {player.alias}
             </div>
-            <button onClick={handleClick}>click</button>
+            <button onClick={clickMin} style={{marginRight: 20}}>-</button>
+            <button onClick={handleClick}>+</button>
         </>
     )
 }

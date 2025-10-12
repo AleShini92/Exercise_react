@@ -1,46 +1,74 @@
-import { useState, useRef } from "react"
-
-// spiegazione in basso ⬇︎
+import { useState, useRef } from "react";
 
 export default function NameList() {
+  const [name, setName] = useState("");
+  const [listName, setListName] = useState([]);
+  const nextId = useRef(0);
 
-    const [name, setName] = useState('');
-    const [listsName, setListsName]= useState([])
+  function addName() {
+    setListName([
+      ...listName,
+      { id: nextId.current++, name: name }
+    ]);
+    setName(""); // opzionale: resetta l’input
+  }
 
-    const nextId = useRef(0);
+  function deleteName(id) {
+    setListName(listName.filter(item => item.id !== id));
+  }
 
-    function addName() {
-        {setListsName([
-            ...listsName,
-            {id: nextId.current++, name: name}
-            ])
-            setName(""); // opzionale: resetta l’input dopo l’aggiunta
-        }
-    }
-
-    return(
-        <>
-            <h1 style={{ fontSize: 26, marginBottom: 10 }}>Add a Name:</h1>
-            <input
-                style={{ display: "inline-block", marginRight: 10, marginBottom: 20 }}
-                value={name}
-                onChange={e => setName(e.target.value)}
-            
-            />
-            <button onClick={addName}>
-                add
+  return (
+    <>
+      <h1 style={{ fontSize: 26, marginBottom: 10 }}>Add a Name:</h1>
+      <input
+        style={{ display: "inline-block", marginRight: 10, marginBottom: 20 }}
+        value={name}
+        onChange={e => setName(e.target.value)}
+      />
+      <button onClick={addName}>add</button>
+      <ul>
+        {listName.map(item => (
+          <li key={item.id} style={{ listStyleType: "none", textAlign: "left" }}>
+            {item.name} {" "}
+            <button
+              style={{padding:4, fontSize:12, marginInlineStart:10}}
+              onClick={() => deleteName(item.id)}>Delete
             </button>
-            <ul>
-                {
-                    listsName.map(listName => (
-                    <li key={listName.id}>{listName.name}</li>))
-                }
-            </ul>
-        </>
-    )
+          </li>
+        ))}
+      </ul>
+    </>
+  );
 }
 
 
+/*
+const [name, setName] = useState("")
+Stato per l'input: valore corrente del campo testo. È un controlled input (il value dell<input> è legato a name).
+
+const [listName, setlistName] = useState([])
+Stato per la lista di nomi: un array di oggetti { id, name }.
+
+const nextId = useRef(0)
+Un ref mutabile. nextId.current persiste tra render ma cambiarlo non causa re-render. Qui è usato come contatore incrementale per gli id.
+
+L'utente scrive nell<input>.
+L'handler onChange={e => setName(e.target.value)} viene chiamato ad ogni tasto: aggiorna lo stato name.
+React pianifica un re-render: il value={name} riflette l'ultima stringa, quindi l'input è controllato.
+
+nextId.current++ restituisce il valore corrente come id e poi incrementa nextId.current.
+Esempio: la prima aggiunta dà id: 0, poi nextId.current diventa 1.
+
+setlistName([...listName, { id, name }]) costruisce un nuovo array copiando il vecchio con lo spread e aggiungendo l'oggetto in coda.
+Questo è importante: si mantiene l'immutabilità (React rileva il cambiamento perché l'array è un oggetto diverso).
+
+setName("") pulisce l'input (perché è controllato, il value diventa stringa vuota e l'input si svuota).
+Nota importante: setState è asincrono — ma l'incremento del ref (nextId.current++) avviene immediatamente nello stesso handler.
+
+function deleteName
+Usa filter per creare un nuovo array senza l'elemento con id specificato.
+Poi imposta quello come nuovo stato: React re-renderizza e l'elemento scompare.
+*/
 
 /*
     🔹 Stato iniziale

@@ -20,6 +20,7 @@ import RequestTracker from './useState/RequestTracker.jsx'
 import MovingDot from './useState/MovingDot.jsx'
 import UploadScore from './useState/UploadScore.jsx'
 import NameList from './useState/NameList.jsx'
+import Quiz from './useState/Quiz.jsx'
 
 
 
@@ -31,7 +32,7 @@ function App() {
       {/* <ToDate /> */}
 
       {/* <City /> */}
-      <CityVisible />
+      {/* <CityVisible /> */}
       {/* <Click /> */}
 
       {/* <CityMap /> */}
@@ -45,6 +46,7 @@ function App() {
       {/* <MovingDot /> */}
       {/* <UploadScore /> */}
       {/* <NameList /> */}
+      <Quiz />
     </>
   )
 }
