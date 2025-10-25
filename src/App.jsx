@@ -1,4 +1,5 @@
 import './App.css'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 /* Folder exercise */
 import Count from './exercise/Count'
@@ -21,35 +22,51 @@ import MovingDot from './useState/MovingDot.jsx'
 import UploadScore from './useState/UploadScore.jsx'
 import NameList from './useState/NameList.jsx'
 import Quiz from './useState/Quiz.jsx'
+import Picked from './useState/Picked.jsx'
 
 /* Folder Chat */
 import Messenger from './chat/Messenger.jsx'
+
+import CocktailList from './api/Api.jsx'
+import CocktailDetail from './api/CocktailDetail.jsx';
 
 
 function App() {
   return (
     <>
-      {/* <Count /> */}
-      {/* <Visible /> */}
-      {/* <ToDate /> */}
+      <Router>
+        <Routes>
+          {/* <Count /> */}
+          {/* <Visible /> */}
+          {/* <ToDate /> */}
 
-      {/* <City /> */}
-      {/* <CityVisible /> */}
-      {/* <Click /> */}
+          {/* <City /> */}
+          {/* <CityVisible /> */}
+          {/* <Click /> */}
 
-      {/* <CityMap /> */}
-      {/* <CityFilter /> */}
-      {/* <FilterCity /> */}
-      {/* <List /> */}
+          {/* <CityMap /> */}
+          {/* <CityFilter /> */}
+          {/* <FilterCity /> */}
+          {/* <List /> */}
 
-      {/* <NextImage /> */}
-      {/* <Timer /> */}
-      {/* <RequestTracker /> */}
-      {/* <MovingDot /> */}
-      {/* <UploadScore /> */}
-      {/* <NameList /> */}
-      {/* <Quiz /> */}
-      <Messenger />
+          {/* <NextImage /> */}
+          {/* <Timer /> */}
+          {/* <RequestTracker /> */}
+          {/* <MovingDot /> */}
+          {/* <UploadScore /> */}
+          {/* <NameList /> */}
+          {/* <Quiz /> */}
+          {/* <Picked /> */}
+          {/* <Messenger /> */}
+
+
+          {/* Pagina principale con lista */}
+          <Route path="/" element={<CocktailList />} />
+
+          {/* Pagina dinamica del dettaglio */}
+          <Route path="/cocktail/:id" element={<CocktailDetail />} />
+        </Routes>
+      </Router>
     </>
   )
 }

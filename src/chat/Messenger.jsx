@@ -2,24 +2,24 @@ import { useState } from 'react'
 import Chat from './Chat'
 import ContactList from './ContactList'
 
+const contacts = [
+    { name: 'Taylor', email: 'taylor@mail.com' },
+    { name: 'Alice', email: 'alice@mail.com' },
+    { name: 'Bob', email: 'bob@mail.com' }
+];
 
 export default function Messenger() {
-    const [to, setTo] = useState(contacts[0]);
-
-    const contacts = [
-        { name: 'Taylor', email: 'taylor@mail.com' },
-        { name: 'Alice', email: 'alice@mail.com' },
-        { name: 'Bob', email: 'bob@mail.com' }
-    ];
+    const [message, setMessage] = useState(contacts[0]); {/* dichiarata qui [message] e usata nel componento Chat */ }
 
     return(
-        <>
+        <article style={{display: 'flex', gap: 15}}>
             <ContactList
                 contacts={contacts}
-                selectedContact={to}
-                onSelect={contact => setTo(contact)}
+                selectedContact={message}
+                onSelect={contact => setMessage(contact)}
             />
-            <Chat key={to.email} contact={to} />
-        </>
+            <Chat contact={message} /> {/* passo il valore {message} come props alla function Chat => il nome del valore to è legato alla const to */}
+        </article>
+        
     )
 }

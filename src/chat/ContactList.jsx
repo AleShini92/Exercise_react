@@ -1,17 +1,16 @@
-export default function ContactList({ contacts, onSelect }) {
+export default function ContactList({ selectedContact, contacts, onSelect }) {
   return (
-    <section>
-      <ul>
+    <section style={{display: 'flex', flexDirection: 'column'}}>
         {contacts.map(contact =>
-          <li key={contact.email}>
-            <button onClick={() => {
-              onSelect(contact);
-            }}>
-              {contact.name}
-            </button>
-          </li>
+          <button
+            style={{marginBlockEnd: 5}}
+            key={contact.email}
+            onClick={() => {
+            onSelect(contact);
+          }}>
+           {contact.name}
+          </button>
         )}
-      </ul>
     </section>
   );
 }
